@@ -1,0 +1,14 @@
+# Core dependencies for TikTok scraper
+playwright==1.40.0
+selenium==4.15.2  # Alternative to Playwright
+beautifulsoup4==4.12.2
+requests==2.31.0
+pandas==2.1.3
+loguru==0.7.2
+python-dotenv==1.0.0
+colorama==0.4.6
+click==8.1.7  # For CLI
+fake-useragent==1.4.0
+tenacity==8.2.3  # For retry logic
+aiohttp==3.9.1  # For async HTTP requests
+asyncio-throttle==1.0.2  # For rate limiting

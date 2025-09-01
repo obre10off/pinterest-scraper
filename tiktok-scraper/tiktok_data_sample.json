@@ -1,0 +1,10 @@
+{
+  "__DEFAULT_SCOPE__": {
+    "webapp.app-context": "<dict>",
+    "webapp.biz-context": "<dict>",
+    "webapp.i18n-translation": "<dict>",
+    "seo.abtest": "<dict>",
+    "webapp.user-detail": "<dict>",
+    "webapp.a-b": "<dict>"
+  }
+}
