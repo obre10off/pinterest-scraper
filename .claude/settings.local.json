@@ -1,8 +1,23 @@
 {
-  "enableAllProjectMcpServers": false,
   "permissions": {
     "allow": [
-      "Bash(python:*)"
+      "Bash(python:*)",
+      "WebSearch",
+      "Bash(cat:*)",
+      "Bash(timeout 60 python:*)",
+      "Bash(timeout 90 python test_final.py)",
+      "Bash(for dir in findings/*/)",
+      "Bash(done)",
+      "Bash(mkdir:*)",
+      "Read(/Users/xyz/.claude/**)",
+      "Read(/Users/xyz/.claude/**)",
+      "Bash(for dir in scraped_data/*/)",
+      "Bash(if [ -f \"$dir/slideshows.json\" ])",
+      "Bash(then jq length \"$dir/slideshows.json\")",
+      "Bash(else echo \"0\")",
+      "Bash(fi)",
+      "Bash(chmod:*)"
     ]
-  }
+  },
+  "enableAllProjectMcpServers": false
 }

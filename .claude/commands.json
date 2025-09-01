@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-commands.json",
+  "commands": {
+    "context": {
+      "description": "Monitor context window usage and get session management recommendations",
+      "executable": "./.claude/commands/context",
+      "category": "Utilities",
+      "usage": "/context",
+      "examples": [
+        {
+          "description": "Check current context usage",
+          "command": "/context"
+        }
+      ]
+    }
+  }
+}
