@@ -1,0 +1,6 @@
+#!/bin/bash
+
+# Context Window Usage Monitor
+# Usage: /context
+
+node "$(dirname "$0")/context.js" "$@"

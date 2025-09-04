@@ -1,0 +1,38 @@
+{
+  "scraper_settings": {
+    "headless": false,
+    "timeout": 30000,
+    "scroll_pause_time": 3,
+    "max_scrolls": 10,
+    "user_agent_rotation": true,
+    "anti_detection": true,
+    "download_images": false,
+    "slideshows_only": true
+  },
+  "rate_limiting": {
+    "min_delay": 3,
+    "max_delay": 10,
+    "requests_per_minute": 10
+  },
+  "target_profiles": [
+    "miiaaa.xox",
+    "charliedamelio",
+    "addisonre",
+    "bellapoarch",
+    "khaby.lame",
+    "zachking"
+  ],
+  "output": {
+    "base_directory": "scraped_data",
+    "save_json": true,
+    "save_hooks_txt": true,
+    "save_images": false,
+    "training_format": true
+  },
+  "filters": {
+    "min_likes": 1000,
+    "min_views": 5000,
+    "slideshow_only": true,
+    "has_text": true
+  }
+}

@@ -16,7 +16,8 @@ def scrape_image_urls_only(categories, images_per_category=50):
     try:
         for category in categories:
             print(f"\n🔍 Scraping URLs for: {category}")
-            result = scraper.scrape_category(category, images_per_category)
+            # Increase max_scrolls significantly for better yield
+            result = scraper.scrape_category(category, images_per_category, max_scrolls=100)
             
             # Extract just the image URLs
             urls = [img['image_url'] for img in result['images']]
