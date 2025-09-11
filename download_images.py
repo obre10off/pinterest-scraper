@@ -27,14 +27,14 @@ def download_image(url, filepath):
     return False
 
 def download_category_images(category_folder, max_images=None):
-    """Download images for a specific category"""
-    # Look for URLs file
-    urls_file = f"findings/{category_folder}/urls_only.txt"
+    """Download 9:16 images only for TikTok/Instagram Reels"""
+    # Look for 9:16 URLs file first (TikTok/Instagram Reels)
+    urls_file = f"findings/{category_folder}/perfect/9x16/urls_only.txt"
     json_file = f"findings/{category_folder}/image_data.json"
     
     urls = []
     
-    # Try to load URLs from text file
+    # Try to load 9:16 URLs from text file
     if os.path.exists(urls_file):
         with open(urls_file, 'r') as f:
             lines = f.readlines()
@@ -45,25 +45,28 @@ def download_category_images(category_folder, max_images=None):
                     if len(parts) > 1:
                         urls.append(parts[1].strip())
     
-    # Or try JSON file
+    # Fallback: try JSON file and filter for 9:16 only
     elif os.path.exists(json_file):
         with open(json_file, 'r') as f:
             data = json.load(f)
-            urls = [img['image_url'] for img in data.get('images', [])]
+            for img in data.get('images', []):
+                # Only include 9:16 aspect ratio images
+                if img.get('aspect_ratio') == '9:16':
+                    urls.append(img['image_url'])
     
     if not urls:
         print(f"No URLs found for {category_folder}")
         return 0
     
-    # Create images subfolder
-    images_folder = f"findings/{category_folder}/images"
+    # Create 9x16 images subfolder
+    images_folder = f"findings/{category_folder}/images_9x16"
     os.makedirs(images_folder, exist_ok=True)
     
     # Download images
     downloaded = 0
     total = min(len(urls), max_images) if max_images else len(urls)
     
-    print(f"\nDownloading {total} images for {category_folder}...")
+    print(f"\nDownloading {total} 9:16 images for {category_folder} (TikTok/Instagram Reels)...")
     
     for i, url in enumerate(urls[:total], 1):
         ext = 'jpg' if 'jpg' in url.lower() else 'png'
@@ -81,7 +84,7 @@ def download_category_images(category_folder, max_images=None):
     return downloaded
 
 def download_all_categories(max_per_category=50):
-    """Download images for all categories"""
+    """Download 9:16 images for all categories (TikTok/Instagram Reels only)"""
     findings_dir = Path("findings")
     
     if not findings_dir.exists():
@@ -95,16 +98,17 @@ def download_all_categories(max_per_category=50):
         print("No category folders found in findings/")
         return
     
-    print(f"Found {len(categories)} categories to download")
+    print(f"Found {len(categories)} categories to download 9:16 images from")
     total_downloaded = 0
     
     for category_path in categories:
         category = category_path.name
         downloaded = download_category_images(category, max_per_category)
         total_downloaded += downloaded
-        print(f"✅ Downloaded {downloaded} images for {category}\n")
+        print(f"✅ Downloaded {downloaded} 9:16 images for {category}\n")
     
-    print(f"\n🎉 Total images downloaded: {total_downloaded}")
+    print(f"\n🎉 Total 9:16 images downloaded: {total_downloaded}")
+    print("📱 All images are optimized for TikTok and Instagram Reels!")
 
 if __name__ == "__main__":
     import sys
@@ -116,6 +120,6 @@ if __name__ == "__main__":
         download_category_images(category, max_images)
     else:
         # Download all categories
-        print("Downloading images for all categories...")
+        print("Downloading 9:16 images for all categories (TikTok/Instagram Reels)...")
         print("(Use 'python download_images.py category_name [max]' for specific category)")
         download_all_categories(max_per_category=30)

@@ -4,10 +4,10 @@ Run the improved scraper on all original categories
 """
 
 from enhanced_scraper import EnhancedPinterestScraper
-import json
+
 
 categories = [
-    "Entrepreneur",
+    "Entrepreneur Aesthetic",
     "Selfie Couples",
     "Laptop Study",
     "NYC Lifestyle",

@@ -82,7 +82,7 @@ python enhanced_scraper.py
 python download_images.py
 
 # Download specific category with limit
-python download_images.py entrepreneur 20
+python download_images.py entrepreneur_aesthetic 20
 ```
 
 ## Anti-Detection Implementation

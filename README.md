@@ -68,7 +68,7 @@ pintrest-scraper/
 ├── requirements.txt          # Python dependencies
 ├── README.md                # This file
 └── findings/                # ← CREATED AUTOMATICALLY
-    ├── entrepreneur/
+    ├── entrepreneur_aesthetic/
     │   ├── image_data.json      # Full metadata
     │   ├── image_urls.txt       # Formatted URL list  
     │   └── urls_only.txt        # Simple URL list
@@ -116,7 +116,7 @@ pintrest-scraper/
 ## 📊 Categories Scraped
 
 The scraper targets these 12 categories:
-- **Entrepreneur** - Business and startup content
+- **Entrepreneur Aesthetic** - Business and startup content
 - **Selfie Couples** - Couple photography
 - **Laptop Study** - Study and workspace aesthetics
 - **NYC Lifestyle** - New York City lifestyle

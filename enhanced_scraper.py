@@ -30,7 +30,7 @@ class EnhancedPinterestScraper:
             (2, 3),   # Between 4:5 and 9:16, good for Stories (1080x1620) 
             (5, 8),   # Close to 9:16, easily croppable (1080x1728)
         ]
-        self.min_resolution = 500  # Significantly reduced for better yield
+        self.min_resolution = 720  # TikTok minimum quality requirement
         self.preferred_dimensions = [
             (1080, 1920), (1080, 1080), (1080, 1350),  # Perfect
             (1080, 1440), (1080, 1620), (1080, 1728)   # Croppable
@@ -128,15 +128,15 @@ class EnhancedPinterestScraper:
         if not width or not height:
             return False, None, 0, None
         
-        # More relaxed minimum resolution requirement
-        if max(width, height) < self.min_resolution * 0.8:  # Below 80% of minimum (400px)
+        # Strict minimum resolution requirement for TikTok quality
+        if max(width, height) < self.min_resolution:  # Below 720px minimum
             return False, None, 0, None
         
         # Calculate aspect ratio
         aspect_ratio = width / height
         
-        # Check against target ratios with significantly expanded tolerance
-        tolerance = 0.35  # Significantly increased for better yield
+        # Check against target ratios with strict tolerance for quality
+        tolerance = 0.20  # Strict tolerance for high-quality matches only
         best_match = None
         best_score = 0
         quality_tier = None
@@ -156,10 +156,10 @@ class EnhancedPinterestScraper:
                 # Determine quality tier
                 if (target_w, target_h) in perfect_ratios:
                     tier = "perfect"
-                    base_score = 80  # Higher base score for perfect ratios
+                    base_score = 85  # Higher base score for perfect ratios (TikTok quality)
                 else:
                     tier = "croppable" 
-                    base_score = 60  # Lower base score for croppable ratios
+                    base_score = 70  # Lower base score for croppable ratios
                 
                 # Bonus for exact preferred dimensions
                 if (width, height) in self.preferred_dimensions:
@@ -167,28 +167,39 @@ class EnhancedPinterestScraper:
                 elif (height, width) in self.preferred_dimensions:  # Check flipped
                     score = 100 if tier == "perfect" else 85
                 else:
-                    # Score based on resolution quality
+                    # Score based on resolution quality (stricter requirements)
                     min_dim = min(width, height)
                     max_dim = max(width, height)
                     
                     score = base_score
+                    # Only give bonuses for high-quality resolutions
                     if min_dim >= 1080:
-                        score += 15
+                        score += 15  # Full HD quality
+                    elif min_dim >= 900:
+                        score += 10  # Good quality
                     elif min_dim >= 720:
-                        score += 10
+                        score += 5   # Minimum acceptable
+                    else:
+                        score -= 10  # Penalty for low resolution
                     
                     # Bonus for higher resolution
                     if max_dim >= 1920:
                         score += 5
                     elif max_dim >= 1440:
                         score += 3
+                    elif max_dim < 1000:
+                        score -= 5  # Penalty for low max resolution
                 
                 if score > best_score:
                     best_score = score
                     best_match = f"{target_w}:{target_h}"
                     quality_tier = tier
         
-        return best_match is not None, best_match, best_score, quality_tier
+        # Only accept images with high quality scores (85+ for TikTok)
+        if best_match is not None and best_score >= 85:
+            return True, best_match, best_score, quality_tier
+        else:
+            return False, None, 0, None
     
     def convert_to_original_url(self, url):
         """Convert Pinterest thumbnail URL to original high-res URL"""
@@ -604,7 +615,7 @@ class EnhancedPinterestScraper:
 def main():
     # Your categories
     categories = [
-        "Entrepreneur",
+        "Entrepreneur Aesthetic",
         "Selfie Couples",
         "Laptop Study",
         "NYC Lifestyle",

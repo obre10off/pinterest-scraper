@@ -152,9 +152,10 @@ def analyze_target_dimensions():
         tier = "Perfect" if (width, height) in [(1080, 1920), (1080, 1080), (1080, 1350)] else "Croppable"
         print(f"  {width}x{height} (aspect: {aspect:.3f}) [{tier}]")
     
-    print(f"\nMinimum Resolution: {scraper.min_resolution}px (REDUCED for better yield)")
-    print(f"Aspect Ratio Tolerance: 0.2 (EXPANDED from 0.1)")
-    print(f"Quality Scoring: Perfect=80-100, Croppable=60-85")
+    print(f"\nMinimum Resolution: {scraper.min_resolution}px (TIKTOK QUALITY)")
+    print(f"Aspect Ratio Tolerance: 0.2 (STRICT for quality)")
+    print(f"Quality Scoring: Perfect=85-100, Croppable=70-85")
+    print(f"Minimum Quality Threshold: 85+ (TikTok-ready only)")
     
     scraper.close()
 

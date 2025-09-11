@@ -54,7 +54,7 @@ def scrape_image_urls_only(categories, images_per_category=50):
 if __name__ == "__main__":
     # Your categories
     categories = [
-        "Entrepreneur",
+        "Entrepreneur Aesthetic",
         "Selfie Couples", 
         "Laptop Study",
         "NYC Lifestyle",
